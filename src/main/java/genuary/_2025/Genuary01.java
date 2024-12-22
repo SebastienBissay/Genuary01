@@ -16,7 +16,6 @@ public class Genuary01 extends PApplet {
     public void settings() {
         size(WIDTH, HEIGHT);
         randomSeed(SEED);
-        noiseSeed(floor(random(MAX_INT)));
     }
 
     @Override
