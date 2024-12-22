@@ -3,21 +3,20 @@ package genuary._2025.parameters;
 import java.lang.reflect.Field;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public final class Parameters {
     public static final long SEED = 20250101;
     public static final int WIDTH = 1000;
     public static final int HEIGHT = 1000;
-    public static final int STROKE_WEIGHT = 10;
-    public static final float NOISE_SCALE = 1 / 50f;
-    public static final Color BACKGROUND_COLOR = new Color(255, 245, 245);
-    public static final List<Color> PALETTE = List.of(
-            new Color(72, 207, 203),
-            new Color(34, 151, 153),
-            new Color(66));
-    public static final Color STROKE_COLOR = new Color(34, 151, 153);
+    public static final float MARGIN = 100;
+    public static final float BRUSH_SIZE = 2.5f;
+    public static final float BRISTLE_DENSITY = .5f;
+    public static final float INK_ABSORPTION = .01f;
+    public static final float MINIMUM_INK_AMOUNT = 3f;
+    public static final float MAXIMUM_INK_AMOUNT = 5f;
+    public static final Color BACKGROUND_COLOR = new Color(223);
+    public static final Color STROKE_COLOR = new Color(34);
 
     /**
      * Helper method to extract the constants in order to genuary._2025.save them to a json file

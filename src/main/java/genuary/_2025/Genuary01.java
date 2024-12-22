@@ -1,6 +1,8 @@
 package genuary._2025;
 
+import brush.Brush;
 import processing.core.PApplet;
+import processing.core.PVector;
 
 import static genuary._2025.parameters.Parameters.*;
 import static genuary._2025.save.SaveUtil.saveSketch;
@@ -21,37 +23,23 @@ public class Genuary01 extends PApplet {
     public void setup() {
         background(BACKGROUND_COLOR.red(), BACKGROUND_COLOR.green(), BACKGROUND_COLOR.green());
         stroke(STROKE_COLOR.red(), STROKE_COLOR.green(), STROKE_COLOR.blue(), STROKE_COLOR.alpha());
-        strokeWeight(STROKE_WEIGHT);
         noFill();
         noLoop();
     }
 
     @Override
     public void draw() {
-        for (int y = 0; y < HEIGHT; y += 2 * STROKE_WEIGHT) {
-            drawLine(y);
+        for (int y = floor(MARGIN); y <= HEIGHT - MARGIN; y += ceil(2f * BRUSH_SIZE)) {
+            float startX = WIDTH / 2f - sqrt(sq(WIDTH / 2f - MARGIN) - sq(y - HEIGHT / 2f));
+            Brush brush = new Brush(BRUSH_SIZE,
+                    BRISTLE_DENSITY,
+                    random(MINIMUM_INK_AMOUNT, MAXIMUM_INK_AMOUNT)
+                            + map(abs(y - HEIGHT / 2f),
+                            0, WIDTH / 2f - MARGIN,
+                            MINIMUM_INK_AMOUNT, 0), this);
+            brush.line(new PVector(startX, y), new PVector(WIDTH - MARGIN, y));
         }
+
         saveSketch(this);
-    }
-
-    private void drawLine(float y) {
-        float threshold = .35f;
-
-        Float start = null;
-        for (int x = 0; x < width; x += 2 * STROKE_WEIGHT) {
-            float noise = noise(x * NOISE_SCALE, y * NOISE_SCALE);
-            if (abs(noise - threshold) > .05 && start == null) {
-                start = (float) x;
-            }
-            if (abs(noise - threshold) < .05 && start != null) {
-                line(start, y, x, y);
-                start = null;
-            }
-        }
-        if (start != null) {
-            Color color = PALETTE.get(floor(random(PALETTE.size())));
-            stroke(color.red(), color.green(), color.blue(), color.alpha());
-            line(start, y, WIDTH, y);
-        }
     }
 }
